@@ -1,0 +1,6 @@
+(define (1st-sub-exp aexp)
+  (car (cdr aexp)))
+(define (2nd-sub-exp aexp)
+  (car (cdr (cdr aexp))))
+(define (operator aexp)
+  (car aexp))
