@@ -14,7 +14,7 @@
 (define (subset? set1 set2)
   (cond  [(null? set1) #t]
          [else (and (member? (car set1) set2)
-                    (subset? (cdr set1) set2))]))
+                    (subset? (cdr set1) set2))]
 
 (subset? '() '())
 (subset? '(A) '())
@@ -23,4 +23,3 @@
 (subset? '(A) '(B A))
 (subset? '(A B) '(B A))
 (subset? '(A B C) '(B A))
-      
