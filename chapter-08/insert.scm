@@ -45,5 +45,3 @@
       (cons new l))) eq?))
 
 (subst 'a 'A '(A b c d))
-
-
