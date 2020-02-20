@@ -25,5 +25,3 @@
 (define (value nexp)
   (cond [(atom? nexp) nexp]
         [((atom-to-function (operator nexp)) (value (1st nexp)) (value (2nd nexp)))]))
-         
-        
