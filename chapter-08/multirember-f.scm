@@ -64,11 +64,11 @@ a:'a lat: '(b a), c:a-friend
   (cond [(null? lat) (col '() '())]
         [(eq? 'a (car lat))
          (multirember&co 'a (cdr lat)
-                         #?=(lambda (newlat seen)
+                         (lambda (newlat seen)
                            (col newlat (cons (car lat) seen))))]
         [else
          (multirember&co 'a (cdr lat)
-                         #?=(lambda (newlat seen)
+                         (lambda (newlat seen)
                            (col (cons (car lat) newlat) seen)))]))
 
 (multirember&co 'a '(a b c a d e) (lambda (a b) (list a b)))

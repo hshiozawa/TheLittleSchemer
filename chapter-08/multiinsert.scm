@@ -24,6 +24,8 @@
 
 (multiinsertLR 'a 'b 'c '(b c b c b c))
 
+(multiinsertLR&co 'a 'b 'c '(b) (lambda (lat 0 0) lat))
+                                          
 (define (multiinsertLR&co new oldL oldR lat col)
   (cond [(null? lat) (col '() 0 0)]
         [(eq? oldL (car lat))
@@ -65,9 +67,4 @@
 
 
 
-                         
-             
-
-
-
-         
+           
