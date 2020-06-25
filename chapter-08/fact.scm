@@ -61,4 +61,21 @@
           (* 3 d)))
        (* 2 e)))
     1)
-             
+
+
+(fact&co 2 (lambda (a)
+             ((lambda (x) x)
+              (* 3 a))))
+
+(fact&co 1 (lambda (b)
+             ((lambda (a)
+                ((lambda (x) x)
+                 (* 3 a)))
+              (* 2 b))))
+
+((lambda (b)
+   ((lambda (a)
+      ((lambda (x) x)
+       (* 3 a)))
+    (* 2 b)))
+ 1)
