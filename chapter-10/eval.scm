@@ -22,6 +22,12 @@
 
 (define z (new-entry '(f g h) '(7 8 9)))
 
+(define (lookup-in-entry-help name keys values entry-f)
+  (cond [(null? keys) (entry-f name)]
+        [(eq? name (car keys)) (car values)]
+        [else (lookup-in-entry-help
+               name (cdr keys) (cdr values) entry-f)]))
+
 (define (lookup-in-entry name entry entry-f)
   (lookup-in-entry-help name
                         (first entry)
@@ -29,12 +35,6 @@
                         entry-f))
 
 (lookup-in-entry 'f z (lambda (x) #f))
-
-(define (lookup-in-entry-help name keys values entry-f)
-  (cond [(null? keys) (entry-f name)]
-        [(eq? name (car keys)) (car values)]
-        [else (lookup-in-entry-help
-               name (cdr keys) (cdr values) entry-f)]))
 
 (lookup-in-entry 'c x (lambda (name) #f))
 
@@ -51,34 +51,37 @@
 
 (lookup-in-table 'h env (lambda (name) #f))
 
-(cons rep-car
-      (cons (cons rep-quote
-                  (cons
-                   (cons rep-a
-                         (cons rep-b
-                               (cons rep-c
-                                     '())))
-                  '()))
-            '()))
+;; (cons rep-car
+;;       (cons (cons rep-quote
+;;                   (cons
+;;                    (cons rep-a
+;;                          (cons rep-b
+;;                                (cons rep-c
+;;                                      '())))
+;;                   '()))
+;;             '()))
 
-'(car (quote (a b c)))
+;; '(car (quote (a b c)))
 
 (define (expression-to-action e)
+  (format #t "expression-to-action [e=~a]~%" e)
   (cond [(atom? e) (atom-to-action e)]
         [else (list-to-action e)]))
 
 (define (atom-to-action e)
+  (format #t "atom-to-action [e=~a]~%" e)
   (cond [(number? e) *const]
         [(eq? e #t) *const]
         [(eq? e #f) *const]
         [(eq? e (quote cons)) *const]
         [(eq? e (quote car)) *const]
+        [(eq? e (quote cdr)) *const]
         [(eq? e (quote null?)) *const]
         [(eq? e (quote eq?)) *const]
         [(eq? e (quote atom?)) *const]
         [(eq? e (quote zero?)) *const]
-        [(eq? e (quote add1?)) *const]
-        [(eq? e (quote sub1?)) *const]
+        [(eq? e (quote add1)) *const]
+        [(eq? e (quote sub1)) *const]
         [(eq? e (quote number?)) *const]
         [else *identifier]))
 
@@ -96,6 +99,7 @@
   (meaning e '()))
 
 (define (meaning e table)
+  (format #t "meaning [e=~a]~%" e)
   ((expression-to-action e) e table))
 
 (value '#t)
@@ -104,6 +108,7 @@
 (value '1)
 
 (define (*const e table)
+  (format #t "const [e=~a]~%" e)
   (cond [(number? e) e]
         [(eq? e #t) #t]
         [(eq? e #f) #f]
@@ -183,6 +188,7 @@
         [(non-primitive? fun) (apply-closure (second fun) vals)]))
 
 (define (apply-primitive e vals)
+  (format #t "prim[e=~a, vals=~a]~%" e vals)
   (cond [(eq? e (quote cons)) (cons (first vals) (second vals))]
         [(eq? e (quote car)) (car (first vals))]
         [(eq? e (quote cdr)) (cdr (first vals))]
@@ -204,7 +210,7 @@
 ;; 非基本関数（クロージャ）を適用するということ。
 ;; → (formals vals) でテーブルを拡張して、body を評価する
 (define (apply-closure closure vals) 
-  (meaning #?=(body-of closure)
+  (meaning (body-of closure)
            (extend-table
             (new-entry (formals-of closure) vals)
             (table-of closure))))
@@ -219,6 +225,3 @@
 
 (cons '(1 2 3) (cons '(4 5 6) '()))
 
-
-
-=> 順 LISP

@@ -204,3 +204,39 @@
  (lambda (a b)
    (cons a b)))
     
+
+
+(value
+ '(((lambda (le)
+      ((lambda (f)
+         (f f))
+       (lambda (f)
+         (le (lambda (x)
+               ((f f) x))))))
+    (lambda (length)
+      (lambda (l)
+        (cond
+         ((null? l) 0)
+         (else (add1 (length (cdr l))))))))
+   '(1 2 3 4 5)))
+
+(value
+ '(((lambda (le)
+     ((lambda (f)
+        (f f))
+      (lambda (f)
+        (le (lambda (x)
+              ((f f) x))))))
+    (lambda (length)
+      (lambda (l)
+        (cond
+         ((null? l) 0)
+         (else (add1 (length (cdr l))))))))
+   (quote (1 2 3 4 5))))
+
+(meaning '(add1 (length (cdr l))) '(((length))))
+(define (add1 x) (+ 1 x))
+ 
+ 
+
+
