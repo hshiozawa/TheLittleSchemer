@@ -65,7 +65,7 @@
  '((non-primitive (() (a b) (cons a b)))))
 ```
 
-↓ meanining を評価
+↓ meaning を評価
 
 ```scheme
 (apply
@@ -239,7 +239,7 @@
 ```scheme
 (apply
  '(primitve cons)
- '(1 2)))
+ '(1 2))
 ```
 
 ↓ apply を評価

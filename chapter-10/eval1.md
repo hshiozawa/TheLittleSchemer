@@ -81,7 +81,7 @@
  '((non-primitive (() (a b) (cons a b)))))
 ```
 
-↓ elvis を評価
+↓ evlis を評価
 
 ```scheme
 (apply
@@ -271,7 +271,7 @@
  (evlis '(a b) '(((a b) (1 2)))))
 ```
 
-↓ elivs を評価
+↓ evlis を評価
 
 ```scheme
 (apply
@@ -284,7 +284,7 @@
 ```scheme
 (apply
  '(primitve cons)
- '(1 2)))
+ '(1 2))
 ```
 
 ↓ apply を評価
