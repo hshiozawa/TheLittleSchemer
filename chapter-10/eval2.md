@@ -1,5 +1,5 @@
 ## 適用するコード
-``scheme
+```scheme
 ((lambda (f)
   ((lambda (x)
     ((lambda (y)
